@@ -9,7 +9,7 @@ float subtrim_tilt = 0;
 float req_tilt = 0.0;
 float req_pan = 0.0;
 float d_pan = 0.0; // delta pan
-
+float velocity = 1; //calibration velocity
 void calc_plane_tracking_coordinates()
 {
 
@@ -209,6 +209,8 @@ void pan_tilt_related()
 	subtrim_tilt += tilt;
 }
 
+
+
 /*
 Pan the AT by x degrees
 params:
@@ -226,4 +228,56 @@ void moveTo()
 	//todo: pan the AT by x degrees  
 	req_pan = pan;
 	req_tilt = tilt;
+}
+
+/*
+Initiate the calibration process
+*/
+void startOrientationCalibration()
+{
+	isNorthCalibrationProcess = true;
+}
+
+/*
+This process is responsible for calibrating the orientation of the tracker. At the end
+of this process, the antenna tracker should point to the magnetic north
+*/
+void gotoMagneticNorth(){
+	if (!isNorthCalibrationProcess)
+		return;
+
+	//Check the delta between the current heading and the magnetic heading 
+	float delta = min(hdg_GS, 360-hdg_GS);
+	
+	// if the calibration process is done, exit
+	if (delta < 0.5) {
+		isNorthCalibrationProcess = false;
+		myEnc.write(0);
+		subtrim_pan = 0.0;
+
+		return;
+	}
+
+	if (delta > 17.5)
+		velocity = 8.0;
+	else if (delta > 10)
+		velocity = 1.25;
+	else
+		velocity = 0.3;
+
+	//hdg_GS = hdg_GS;
+	if(hdg_GS > 0 && hdg_GS <= 180)
+		subtrim_pan += velocity;
+	else
+		subtrim_pan -= velocity;
+	
+	
+	if (DEBUG_ORIENT_SETUP) {
+		port_Debug.println("Delta : " + String(delta));
+		port_Debug.println("hdg_GS: " + String(hdg_GS));
+		port_Debug.println("curr_hdg_encoder_GS: " + String(curr_hdg_encoder_GS));
+	}
+
+	req_tilt = 0.0f;
+	
 }

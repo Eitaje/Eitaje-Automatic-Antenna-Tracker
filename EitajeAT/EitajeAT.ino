@@ -53,6 +53,7 @@ unsigned long previousMillisMAVLink = 0, next_interval_MAVLink = millis();
 const char s0[] PROGMEM = "echo";	const char help0[] PROGMEM = "[a number]. Prints back the number.";
 const char s1[] PROGMEM = "rlt";	const char help1[] PROGMEM = "[x]. Wifi communication";
 const char s2[] PROGMEM = "pan";	const char help2[] PROGMEM = "[x]. Wifi communication";
+const char s3[] PROGMEM = "nrth";	const char help3[] PROGMEM = "go to magnetic north";
 //const char s0[] PROGMEM = "+IPD,0,11:pan";	const char help0[] PROGMEM = "[x]. Wifi communication";
 
 
@@ -61,7 +62,8 @@ const FuncEntry_t functionTable[] PROGMEM = {
 	//  String, help, Function
 { s0, help0,   echo },
 { s1, help1,   pan_tilt_related},
-{ s2, help1,   moveTo}
+{ s2, help1,   moveTo},
+{ s3, help1,   startOrientationCalibration }
 };
 
 //this is the compile time calculation of the length of our look up table.
@@ -121,6 +123,20 @@ void setup() {
 
 void loop() {
 
+	// Tracker orientation calibrating process using compass
+	if (isNorthCalibrationProcess)
+	{
+
+		updateSmartTimer(&northCalibrationProcedureTimer);
+		if (northCalibrationProcedureTimer.deltat >= orientationProcess_every)
+		{
+			northCalibrationProcedureTimer.lastUpdate = micros();
+			
+			//move a little closer to the magnetic north;
+			gotoMagneticNorth();
+		}
+
+	}
 
 #ifdef COMM_STATISTICS
 	//print statistics
@@ -289,11 +305,11 @@ void loop() {
 	if (modeSwitchsState_timer.deltat > mode_switch_read_every)
 	{
 		modeSwitchsState_timer.lastUpdate = micros();
-		calibration_mode = digitalRead(mode_switch_pin);
+		remote_setup_mode = digitalRead(mode_switch_pin);
 
 		//debug
 		if(DEBUG_STATUS)
-			if(calibration_mode)
+			if(remote_setup_mode)
 				port_Debug.println("Callibration mode on");
 			else
 				port_Debug.println("Callibration mode off");
@@ -303,6 +319,7 @@ void loop() {
 
 void getEncoderPosition()
 {
+	
 	long newPosition = -myEnc.read();
 	if ((newPosition/ 2.13456789) != encoder_heading) {
 		encoder_heading = newPosition/2.13456789;
@@ -555,7 +572,7 @@ void serialEvent2() {
 	while (port_Wifi.available() > 0) { //calibration mode
 		uint8_t c = port_Wifi.read();
 
-		if (calibration_mode) {
+		if (remote_setup_mode) {
 			//process Java command
 			myParser.processByte(c);
 		}
@@ -841,6 +858,8 @@ void printStatistics()
 	port_Debug.println("GCS GPS rate: " + String(GCS_GPS, 2) + "hz");
 	port_Debug.println("GCS HDG rate: " + String(GCS_hdg, 2) + "hz");
 	port_Debug.println("GCS PID rate: " + String(GCD_PID, 2) + "hz\n");
+	if(isNorthCalibrationProcess)
+		port_Debug.println("Orientation calibration in progress\n");
 
 	//update counters
 	stat_airplane_GPS_rate.lastUpdate = stat_airplane_GPS_rate.now;

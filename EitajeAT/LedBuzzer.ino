@@ -15,7 +15,7 @@ void led_buzz_starting_sequence()
 		// Show the leds
 		FastLED.show();
 
-		if(Buzzer_Enabled)
+		if (Buzzer_Enabled)
 			digitalWrite(buzzer_pin, LOW);
 		delay(50);
 
@@ -33,20 +33,32 @@ void led_buzz_starting_sequence()
 
 void updateSysStateLeds()
 {
-	if (calibration_mode)
+	if (remote_setup_mode)
 	{
+		if (isNorthCalibrationProcess)
+		{
+			leds[GCS_GPS] = CRGB::DarkSalmon;
+			leds[GCS_COMPASS] = CRGB::DarkSalmon;
+			leds[AIRPLANE_GPS] = CRGB::DarkSalmon;
+			leds[GSC_BATT] = CRGB::DarkSalmon;
+			FastLED.show();
+			return;
+		}
+
 		leds[GCS_GPS] = CRGB::Yellow;
 		leds[GCS_COMPASS] = CRGB::Yellow;
 		leds[AIRPLANE_GPS] = CRGB::Yellow;
 		leds[GSC_BATT] = CRGB::Yellow;
 		FastLED.show();
+
 		return;
 	}
+
 
 	// status GCS GPS -------------------------------
 	if (status_GCS_GPS == GCS_GPS_NO_COMMUNICATION)
 		leds[GCS_GPS] = CRGB::Red;
-	
+
 	if (status_GCS_GPS == GCS_GPS_NO_LOCK)
 		leds[GCS_GPS] = CRGB::Orange;
 
@@ -71,7 +83,7 @@ void updateSysStateLeds()
 
 	if (status_airplane_gps == AIRPLANE_GPS_OK)
 		leds[AIRPLANE_GPS] = CRGB::Green;
-	
+
 	if (status_airplane_gps == AIRPLANE_GPS_NO_DATA_YET)
 		leds[AIRPLANE_GPS] = CRGB::Blue;
 
@@ -116,8 +128,8 @@ void updateSysStateLeds()
 
 		if (bazz_state == LOW) {
 			bazz_state = HIGH;
-			
-			if(Buzzer_Enabled)
+
+			if (Buzzer_Enabled)
 				digitalWrite(buzzer_pin, bazz_state);
 			leds[GSC_BATT] = CRGB::DarkOrange;
 			FastLED.show();
@@ -143,7 +155,7 @@ void shortBeep(int numBeeps)
 {
 	int i = 0;
 	boolean beeperState = LOW;
-	while (i < numBeeps*2)
+	while (i < numBeeps * 2)
 	{
 		updateSmartTimer(&Beeper_timer);
 		if (Beeper_timer.deltat > beeper_delay) {

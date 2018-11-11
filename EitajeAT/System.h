@@ -27,6 +27,7 @@ enum airplane_GPS_health { AIRPLANE_GPS_OK, AIRPLANE_GPS_NO_DATA_YET, AIRPLANE_G
 #define DEBUG_CONTROL		false
 #define DEBUG_ENCODER		false
 #define DEBUG_WIFI			false
+#define DEBUG_ORIENT_SETUP	false  // magnetic north orientation procedure debug
 #define Buzzer_Enabled		false
 
 
@@ -119,7 +120,8 @@ enum airplane_GPS_health status_airplane_gps = AIRPLANE_GPS_NO_DATA_YET;
 #define GPS_timeout						2500 // 333
 #define compass_timeout					2500 // 333
 #define beeper_delay					50
-#define statistics_print_every			5000
+#define statistics_print_every			2000
+#define orientationProcess_every		100
 
 
 //#define toggleDisplayEvery   500 // flip what's being displayed every x loops
@@ -154,8 +156,9 @@ uint16_t hdg_airplane = 0; ///< Compass heading in degrees * 100, 0.0..359.99 de
 boolean CGS_gps_got_3d_fix		= false; // true iff GCS gps's got a good sattelite lock
 boolean airplane_gps_got_3d_fix = false; // true iff airplane gps's got a good sattelite lock
 unsigned short int satellites_visible = 0;
-boolean coordinatesUnpdated = false; //true iff new coordinates arrived from airplane (via mavlink)
-boolean calibration_mode	= false; //true iff new coordinates arrived from airplane (via mavlink)
+boolean coordinatesUnpdated		  = false; //true iff new coordinates arrived from airplane (via mavlink)
+boolean remote_setup_mode		  = false; //true iff setup button is pressed
+boolean isNorthCalibrationProcess = true;  // true when calibrating the tracker orientation 
 
 int32_t lat_GCS = 312521140; ///< Latitude, expressed as * 1E7
 int32_t lon_GCS = 347247436; ///< Longitude, expressed as * 1E7
@@ -189,7 +192,9 @@ stat_airplane_GPS_rate,
 stat_GCS_heading_rate,
 stat_GCS_GPS_rate,
 stat_GCS_PID_rate,
-stat_print_timer;
+stat_print_timer,
+northCalibrationProcedureTimer
+;
 
 
 
