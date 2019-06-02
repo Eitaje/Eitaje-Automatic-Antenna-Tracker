@@ -1,6 +1,6 @@
-C:\Users\eitanme\AppData\Local\Temp\VMBuilds\EitajeAT\arduino_due_x\Debug\VM_DBG\VM_DBG.cpp.o: \
- c:\program\ files\ (x86)\microsoft\ visual\ studio\2017\community\common7\ide\extensions\pq0yofgn.yje\Micro\ Platforms\default\debuggers\VM_DBG\VM_DBG.cpp \
- c:\program\ files\ (x86)\microsoft\ visual\ studio\2017\community\common7\ide\extensions\pq0yofgn.yje\Micro\ Platforms\default\debuggers\VM_DBG\VM_DBG.h \
+C:\Users\eitanme\AppData\Local\Temp\VMBuilds\EitajeAT\arduino_due_x\Release\ACROBOTIC_SSD1306\ACROBOTIC_SSD1306.cpp.o: \
+ C:\Users\eitanme\Documents\Arduino\libraries\ACROBOTIC_SSD1306\ACROBOTIC_SSD1306.cpp \
+ C:\Users\eitanme\Documents\Arduino\libraries\ACROBOTIC_SSD1306\ACROBOTIC_SSD1306.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/Arduino.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/avr/pgmspace.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/avr/interrupt.h \
@@ -135,4 +135,8 @@ C:\Users\eitanme\AppData\Local\Temp\VMBuilds\EitajeAT\arduino_due_x\Debug\VM_DBG
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/USB/USBCore.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/USB/USBAPI.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/RingBuffer.h \
- C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/Stream.h
+ C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/Stream.h \
+ C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\libraries\Wire\src/Wire.h \
+ C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\system/libsam/include/twi.h \
+ C:\Users\eitanme\Documents\Arduino\libraries\ACROBOTIC_SSD1306\fonts/font8x8.h \
+ C:\Users\eitanme\Documents\Arduino\libraries\ACROBOTIC_SSD1306\fonts/font5x7.h

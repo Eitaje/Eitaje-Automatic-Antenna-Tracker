@@ -1,5 +1,5 @@
 C:\Users\eitanme\AppData\Local\Temp\VMBuilds\EitajeAT\arduino_due_x\Debug\VM_DBG\VM_mem_check_sam.cpp.o: \
- C:\Program\ Files\ (x86)\Microsoft\ Visual\ Studio\2017\Community\Common7\IDE\Extensions\pq0yofgn.yje\Micro\ Platforms\default\debuggers\VM_DBG\VM_mem_check_sam.cpp \
+ c:\program\ files\ (x86)\microsoft\ visual\ studio\2017\community\common7\ide\extensions\pq0yofgn.yje\Micro\ Platforms\default\debuggers\VM_DBG\VM_mem_check_sam.cpp \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/Arduino.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/avr/pgmspace.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/avr/interrupt.h \

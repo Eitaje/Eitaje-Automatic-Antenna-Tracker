@@ -235,6 +235,7 @@ Initiate the calibration process
 */
 void startOrientationCalibration()
 {
+	port_Debug.println("Got command: go to north\n");
 	isNorthCalibrationProcess = true;
 }
 
@@ -246,11 +247,25 @@ void gotoMagneticNorth(){
 	if (!isNorthCalibrationProcess)
 		return;
 
+	if (status_GCS_COMPASS != GCS_COMPASS_OK)
+	{
+		port_Debug.println("Can't calibrate AT to north position because GCS_Compass is not available yet");
+		return;
+	}
+
+	//DEBUG
+	//port_Debug.println("\nin gotoMagneticNorth");
+	//port_Debug.println("Delta: " + String(hdg_GS));
+
 	//Check the delta between the current heading and the magnetic heading 
 	float delta = min(hdg_GS, 360-hdg_GS);
 	
 	// if the calibration process is done, exit
 	if (delta < 0.5) {
+
+		//DEBUG
+		port_Debug.println("nullifying isNorthCalibrationProcess var");
+
 		isNorthCalibrationProcess = false;
 		myEnc.write(0);
 		subtrim_pan = 0.0;

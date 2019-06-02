@@ -12,6 +12,7 @@
 
 #ifndef _VSARDUINO_H_
 #define _VSARDUINO_H_
+#define _VMDEBUG 1
 #define printf iprintf
 #define F_CPU 84000000L
 #define ARDUINO 10807
@@ -234,6 +235,7 @@ __attribute__((always_inline)) static __INLINE void __set_PRIMASK(uint32_t priMa
 
 
 #include "EitajeAT.ino"
+#include "LCD.ino"
 #include "LedBuzzer.ino"
 #include "control.ino"
 #include "wifi_comm.ino"

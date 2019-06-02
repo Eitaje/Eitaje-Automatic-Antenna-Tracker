@@ -136,6 +136,11 @@ C:\Users\eitanme\AppData\Local\Temp\VMBuilds\EitajeAT\arduino_due_x\Release\Eita
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/USB/USBAPI.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/RingBuffer.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/Stream.h \
+ C:\Users\eitanme\Documents\Arduino\libraries\ACROBOTIC_SSD1306/ACROBOTIC_SSD1306.h \
+ C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\libraries\Wire\src/Wire.h \
+ C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\system/libsam/include/twi.h \
+ C:\Users\eitanme\Documents\Arduino\libraries\ACROBOTIC_SSD1306/fonts/font8x8.h \
+ C:\Users\eitanme\Documents\Arduino\libraries\ACROBOTIC_SSD1306/fonts/font5x7.h \
  C:\Users\eitanme\Documents\Arduino\libraries\mavlink/mavlink.h \
  C:\Users\eitanme\Documents\Arduino\libraries\mavlink/ardupilotmega/ardupilotmega.h \
  C:\Users\eitanme\Documents\Arduino\libraries\mavlink/ardupilotmega/../protocol.h \
@@ -282,4 +287,5 @@ C:\Users\eitanme\AppData\Local\Temp\VMBuilds\EitajeAT\arduino_due_x\Release\Eita
  C:\Users\eitanme\Documents\Arduino\libraries\FastLED-FastLED3.1/chipsets.h \
  C:\Users\eitanme\Documents\Arduino\libraries\Encoder/Encoder.h \
  C:\Users\eitanme\Documents\Arduino\libraries\Encoder/utility/direct_pin_read.h \
- C:\Users\eitanme\Documents\Arduino\libraries\Encoder/utility/interrupt_pins.h
+ C:\Users\eitanme\Documents\Arduino\libraries\Encoder/utility/interrupt_pins.h \
+ C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\libraries\Wire\src/wire.h

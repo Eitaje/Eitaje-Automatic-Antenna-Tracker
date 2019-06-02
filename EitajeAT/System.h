@@ -52,19 +52,31 @@ enum airplane_GPS_health { AIRPLANE_GPS_OK, AIRPLANE_GPS_NO_DATA_YET, AIRPLANE_G
 // Compass Calibration
 float hdg_cal = 83.6;
 //Battery
-# define BATT_TYPE_4S_LIFE
-//# define BATT_TYPE_8S_NIMH
+#define BATT_TYPE_3S_LIPO
+// #define BATT_TYPE_4S_LIFE
+// #define BATT_TYPE_8S_NIMH
 
 #define adc_bits 12 //sample resolution
 
 #ifdef BATT_TYPE_4S_LIFE
 #define full_buttery_val 13.4 //13.67
 #define max_read 4095
+#endif //BATT_TYPE_4S_LIFE
 
-#define voltage_Q4 13.2 // 3.3v cell
-#define voltage_Q3 13	// 3.25v 
-#define voltage_Q2 12.8 // 3.2v 
-#define voltage_Q1 12	// danger zone 3.0 volt
+#ifdef BATT_TYPE_3S_LIPO
+#define full_buttery_val 12.6 //13.67
+#define max_read 4095
+#endif //#ifdef BATT_TYPE_3S_LIPO
+
+//#define voltage_Q4 13.2 // 3.3v cell
+//#define voltage_Q3 13	// 3.25v 
+//#define voltage_Q2 12.8 // 3.2v 
+//#define voltage_Q1 12	// danger zone 3.0 volt
+
+#define voltage_Q4 12.0 // 4v cell
+#define voltage_Q3 11.1	// 3.7v 
+#define voltage_Q2 10.5 // 3.5v 
+#define voltage_Q1 10.2	// danger zone 3.4 volt
 
 //#define voltage_Q3 13 // 3.25v 
 //#define voltage_Q2 12.8  // 3.2v 
@@ -195,7 +207,3 @@ stat_GCS_PID_rate,
 stat_print_timer,
 northCalibrationProcedureTimer
 ;
-
-
-
-#endif

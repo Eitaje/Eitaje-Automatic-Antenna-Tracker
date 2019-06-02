@@ -3,12 +3,14 @@ Name:       Eitaje AT.ino
 Created:  7/21/2018 1:34:39 PM
 Author:     EITAN-PC\Eitan
 */
+#include <ACROBOTIC_SSD1306.h>
 #include "mavlink.h"
 #include <Servo.h>
 #include "System.h"
 #include <MsgParser.h>
 #include "FastLED.h"
 #include <Encoder.h>
+#include <wire.h>
 
 // Change these two numbers to the pins connected to your encoder.
 //   Best Performance: both pins have interrupt capability
@@ -73,9 +75,14 @@ MsgParser myParser;     //this creates our parser
 
 void setup() {
 
+
+	//LCD
+	LCD_setup();
+
 	LEDS.addLeds<WS2812B, indication_del_pin, GRB>(leds, NUM_LEDS);
 	LEDS.setBrightness(60);
 	LEDS.clearData();
+
 
 	//Batt sample resolution
 	//This will return values from analogRead() between 0 and 4095.
@@ -119,9 +126,18 @@ void setup() {
 
 	//Request specific data streams from Mavlink
 	Mav_Request_Data();
+
+	isNorthCalibrationProcess = true;
 }
 
 void loop() {
+
+	//DEBUG
+	//if(isNorthCalibrationProcess)
+	//	port_Debug.println("isNorthCalibrationProcess = true");
+	//	
+	//else
+	//	port_Debug.println("isNorthCalibrationProcess = false");
 
 	// Tracker orientation calibrating process using compass
 	if (isNorthCalibrationProcess)
@@ -852,14 +868,20 @@ void printStatistics()
 	GCS_hdg = (1000.0f*(stat_GCS_heading_rate.now - stat_GCS_heading_rate.lastUpdate)) / stat_print_timer.deltat;
 	GCD_PID = (1000.0f*(stat_GCS_PID_rate.now - stat_GCS_PID_rate.lastUpdate)) / stat_print_timer.deltat;
 
+	//TEST
+	//String str = "AP GPS rate: " + String(AP_GPS, 2) + "hz";
+	//printStatsOnLCD(str.getBytes);
+
 	//print
 	port_Debug.println("\rstatistics\n--------------");
 	port_Debug.println("AP GPS rate: " + String(AP_GPS, 2) + "hz");
 	port_Debug.println("GCS GPS rate: " + String(GCS_GPS, 2) + "hz");
 	port_Debug.println("GCS HDG rate: " + String(GCS_hdg, 2) + "hz");
 	port_Debug.println("GCS PID rate: " + String(GCD_PID, 2) + "hz\n");
-	if(isNorthCalibrationProcess)
+	if (isNorthCalibrationProcess)
 		port_Debug.println("Orientation calibration in progress\n");
+//	else
+//		port_Debug.println("Not in north calibration process");
 
 	//update counters
 	stat_airplane_GPS_rate.lastUpdate = stat_airplane_GPS_rate.now;

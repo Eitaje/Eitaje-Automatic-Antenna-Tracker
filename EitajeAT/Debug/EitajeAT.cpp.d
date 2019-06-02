@@ -136,6 +136,11 @@ C:\Users\eitanme\AppData\Local\Temp\VMBuilds\EitajeAT\arduino_due_x\Debug\Eitaje
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/USB/USBAPI.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/RingBuffer.h \
  C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\cores\arduino/Stream.h \
+ C:\Users\eitanme\Documents\Arduino\libraries\ACROBOTIC_SSD1306/ACROBOTIC_SSD1306.h \
+ C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\libraries\Wire\src/Wire.h \
+ C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\system/libsam/include/twi.h \
+ C:\Users\eitanme\Documents\Arduino\libraries\ACROBOTIC_SSD1306/fonts/font8x8.h \
+ C:\Users\eitanme\Documents\Arduino\libraries\ACROBOTIC_SSD1306/fonts/font5x7.h \
  C:\Users\eitanme\Documents\Arduino\libraries\mavlink/mavlink.h \
  C:\Users\eitanme\Documents\Arduino\libraries\mavlink/ardupilotmega/ardupilotmega.h \
  C:\Users\eitanme\Documents\Arduino\libraries\mavlink/ardupilotmega/../protocol.h \
@@ -283,4 +288,5 @@ C:\Users\eitanme\AppData\Local\Temp\VMBuilds\EitajeAT\arduino_due_x\Debug\Eitaje
  C:\Users\eitanme\Documents\Arduino\libraries\Encoder/Encoder.h \
  C:\Users\eitanme\Documents\Arduino\libraries\Encoder/utility/direct_pin_read.h \
  C:\Users\eitanme\Documents\Arduino\libraries\Encoder/utility/interrupt_pins.h \
- C:\Program\ Files\ (x86)\Microsoft\ Visual\ Studio\2017\Community\Common7\IDE\Extensions\pq0yofgn.yje\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h
+ C:\Users\eitanme\AppData\Local\arduino15\packages\arduino\hardware\sam\1.6.11\libraries\Wire\src/wire.h \
+ c:\program\ files\ (x86)\microsoft\ visual\ studio\2017\community\common7\ide\extensions\pq0yofgn.yje\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h
