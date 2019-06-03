@@ -169,8 +169,9 @@ void loop() {
 	if (control_timer.deltat > PID_control_procedure_every) {
 		control_timer.lastUpdate = micros();
 
-		if(coordinatesUpdated)
+		if (coordinatesUpdated) {
 			calc_plane_tracking_coordinates(); // re-compute where to point the AT to
+		}
 
 		getEncoderPosition();
 		PID_control(); // point the AT to the desired coordinates

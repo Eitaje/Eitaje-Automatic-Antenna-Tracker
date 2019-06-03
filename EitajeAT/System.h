@@ -25,7 +25,7 @@ enum airplane_MODE { AIRPLANE_DISARMED, AIRPLANE_ARMED };
 #define DEBUG_GCS_GPS		false
 #define DEBUG_GCS_COMPASS   false
 #define DEBUG_AIRPLANE		false
-#define DEBUG_CONTROL		false
+#define DEBUG_CONTROL		true
 #define DEBUG_ENCODER		false
 #define DEBUG_WIFI			false
 #define DEBUG_ORIENT_SETUP	false  // magnetic north orientation procedure debug
@@ -170,6 +170,7 @@ boolean coordinatesUpdated		  = false; //true iff new coordinates arrived from a
 boolean remote_setup_mode		  = false; //true iff setup button is pressed
 boolean isNorthCalibrationProcess = true;  // true when calibrating the tracker orientation 
 boolean gcs_hase_home_loc		  = false; // true if GCS got a home coordinates
+int minimal_distance_for_tracking = 10; // minimal distance in meters between GCS and airplane before tracking is allowd
 
 int32_t lat_GCS = 312521140; ///< Latitude, expressed as * 1E7
 int32_t lon_GCS = 347247436; ///< Longitude, expressed as * 1E7

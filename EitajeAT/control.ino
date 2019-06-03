@@ -14,10 +14,6 @@ void calc_plane_tracking_coordinates()
 {
 #ifdef DO_TRACKING
 
-	if (!gcs_ready_for_tracking)
-		return;
-
-
 	float curr_hdg_to_plane;
 	/*
 	Compute heading to airplane
