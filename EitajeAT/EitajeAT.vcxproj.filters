@@ -19,6 +19,7 @@
     <None Include="wifi_comm.ino" />
     <None Include="control.ino" />
     <None Include="LedBuzzer.ino" />
+    <None Include="LCD.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.EitajeAT.vsarduino.h">

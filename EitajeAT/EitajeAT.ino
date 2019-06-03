@@ -169,7 +169,7 @@ void loop() {
 	if (control_timer.deltat > PID_control_procedure_every) {
 		control_timer.lastUpdate = micros();
 
-		if(coordinatesUnpdated)
+		if(coordinatesUpdated)
 			calc_plane_tracking_coordinates(); // re-compute where to point the AT to
 
 		getEncoderPosition();
@@ -417,7 +417,7 @@ void serialEvent1() { //comm_receive_GCS
 			{
 				//DEBUG
 				//port_Debug.println("MAVLINK_MSG_ID_HEARTBEAT");
-
+				
 				// E.g. read GCS heartbeat and go into
 				// comm lost mode if timer times out
 			}
@@ -611,7 +611,23 @@ void serialEvent2() {
 					if (DEBUG_AIRPLANE)
 						port_Debug.println("AIRPLANE_MAVLINK_MSG_ID_HEARTBEAT");
 
-					//flip Airplane Mavlink keep alive led state
+					mavlink_heartbeat_t heartbeat_int;
+					mavlink_msg_heartbeat_decode(&msg, &heartbeat_int);
+
+					uint8_t base_mode = heartbeat_int.base_mode;
+					if (base_mode >= 128) {
+						if (!gcs_hase_home_loc && status_airplane_gps == AIRPLANE_GPS_OK)
+						{
+							lat_GCS = lat_airplane;
+							lon_GCS = lon_airplane;
+							gcs_hase_home_loc = true;
+
+						}
+						airplaneMode = AIRPLANE_ARMED;
+					}
+					else
+						airplaneMode = AIRPLANE_DISARMED;
+
 
 
 					// E.g. read GCS heartbeat and go into
@@ -641,11 +657,11 @@ void serialEvent2() {
 
 					if (gps_raw_int.lat != lat_airplane) {
 						lat_airplane = gps_raw_int.lat;
-						coordinatesUnpdated = true;
+						coordinatesUpdated = true;
 					}
 					if (gps_raw_int.lon != lon_airplane) {
 						lon_airplane = gps_raw_int.lon;
-						coordinatesUnpdated = true;
+						coordinatesUpdated = true;
 					}
 
 					//DEBUG
@@ -669,11 +685,11 @@ void serialEvent2() {
 					mavlink_msg_global_position_int_decode(&msg, &global_position_int);
 					if (global_position_int.lat != lat_airplane) {
 						lat_airplane = global_position_int.lat;
-						coordinatesUnpdated = true;
+						coordinatesUpdated = true;
 					}
 					if (global_position_int.lon != lon_airplane) {
 						lon_airplane = global_position_int.lon;
-						coordinatesUnpdated = true;
+						coordinatesUpdated = true;
 					}
 
 					alt_airplane = global_position_int.alt / 1000;

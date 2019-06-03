@@ -6,6 +6,7 @@ enum GCS_COMPASS_health { GCS_COMPASS_OK, GCS_COMPASS_UNKNOWN, GCS_COMPASS_TIMEO
 enum GCS_GPS_health { GCS_GPS_NO_COMMUNICATION, GCS_GPS_NO_LOCK, GCS_GPS_OK };
 enum airplane_telemetry_health { AIRPLANE_TELE_OK, AIRPLANE_TELE_NO_COMMUNICATION_YET, AIRPLANE_TELE_UNKNOWN, AIRPLANE_TELE_TIMEOUT };
 enum airplane_GPS_health { AIRPLANE_GPS_OK, AIRPLANE_GPS_NO_DATA_YET, AIRPLANE_GPS_NO_LOCK, AIRPLANE_GPS_TIMEOUT };
+enum airplane_MODE { AIRPLANE_DISARMED, AIRPLANE_ARMED };
 
 //#define TESTING
 
@@ -13,12 +14,12 @@ enum airplane_GPS_health { AIRPLANE_GPS_OK, AIRPLANE_GPS_NO_DATA_YET, AIRPLANE_G
 #define DEBUG			    false
 #define DO_CONTROL			// use servos to move Antenna tracking 
 #define DO_TRACKING			// compute desired pan and tilt given airplane GPS coordinates
-#define COMM_STATISTICS     // print communication statistics
+//#define COMM_STATISTICS     // print communication statistics
 
 //#define DEBUG_AP
 
 #define DEBUG_LOOP			false
-#define DEBUG_SYS			false
+#define DEBUG_SYS			true
 #define DEBUG_STATUS		false
 #define DEBUG_GS			false
 #define DEBUG_GCS_GPS		false
@@ -61,32 +62,29 @@ float hdg_cal = 83.6;
 #ifdef BATT_TYPE_4S_LIFE
 #define full_buttery_val 13.4 //13.67
 #define max_read 4095
+#define voltage_Q4 13.2 // 3.3v cell
+#define voltage_Q3 13	// 3.25v 
+#define voltage_Q2 12.8 // 3.2v 
+#define voltage_Q1 12	// danger zone 3.0 volt
 #endif //BATT_TYPE_4S_LIFE
 
 #ifdef BATT_TYPE_3S_LIPO
 #define full_buttery_val 12.6 //13.67
-#define max_read 4095
-#endif //#ifdef BATT_TYPE_3S_LIPO
-
-//#define voltage_Q4 13.2 // 3.3v cell
-//#define voltage_Q3 13	// 3.25v 
-//#define voltage_Q2 12.8 // 3.2v 
-//#define voltage_Q1 12	// danger zone 3.0 volt
-
+#define max_read 3880
 #define voltage_Q4 12.0 // 4v cell
 #define voltage_Q3 11.1	// 3.7v 
 #define voltage_Q2 10.5 // 3.5v 
 #define voltage_Q1 10.2	// danger zone 3.4 volt
+#endif //#ifdef BATT_TYPE_3S_LIPO
 
-//#define voltage_Q3 13 // 3.25v 
-//#define voltage_Q2 12.8  // 3.2v 
-//#define voltage_Q1 12	 // danger zone 3.0 volt
-
-#endif /* BATT_TYPE_4S_LIFE */
 
 #ifdef BATT_TYPE_8S_NIMH
 #define full_buttery_val 11.2
 #define max_read 3475
+#define voltage_Q4 10.0 // 4v cell
+#define voltage_Q3 9.6	// 3.7v 
+#define voltage_Q2 9 // 3.5v 
+#define voltage_Q1 8	// danger zone 3.4 volt
 #endif /* BATT_TYPE_8S_NIMH */
 
 float battery_val = 0.0;
@@ -99,7 +97,7 @@ enum GCS_COMPASS_health status_GCS_COMPASS = GCS_COMPASS_UNKNOWN;
 enum GCS_GPS_health status_GCS_GPS = GCS_GPS_NO_LOCK;
 enum airplane_telemetry_health status_airplane_telemetry = AIRPLANE_TELE_NO_COMMUNICATION_YET;
 enum airplane_GPS_health status_airplane_gps = AIRPLANE_GPS_NO_DATA_YET;
-
+enum airplane_MODE airplaneMode = AIRPLANE_DISARMED;
 
 //Servo parameters
 #define middle_position		  1475 //general middle
@@ -168,9 +166,10 @@ uint16_t hdg_airplane = 0; ///< Compass heading in degrees * 100, 0.0..359.99 de
 boolean CGS_gps_got_3d_fix		= false; // true iff GCS gps's got a good sattelite lock
 boolean airplane_gps_got_3d_fix = false; // true iff airplane gps's got a good sattelite lock
 unsigned short int satellites_visible = 0;
-boolean coordinatesUnpdated		  = false; //true iff new coordinates arrived from airplane (via mavlink)
+boolean coordinatesUpdated		  = false; //true iff new coordinates arrived from airplane (via mavlink)
 boolean remote_setup_mode		  = false; //true iff setup button is pressed
 boolean isNorthCalibrationProcess = true;  // true when calibrating the tracker orientation 
+boolean gcs_hase_home_loc		  = false; // true if GCS got a home coordinates
 
 int32_t lat_GCS = 312521140; ///< Latitude, expressed as * 1E7
 int32_t lon_GCS = 347247436; ///< Longitude, expressed as * 1E7
@@ -207,3 +206,4 @@ stat_GCS_PID_rate,
 stat_print_timer,
 northCalibrationProcedureTimer
 ;
+#endif

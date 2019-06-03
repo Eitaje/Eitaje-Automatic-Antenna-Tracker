@@ -45,7 +45,7 @@ void calc_plane_tracking_coordinates()
 	req_pan = curr_hdg_to_plane;
 
 	real_control_timer.lastUpdate = micros();
-	coordinatesUnpdated = false;
+	coordinatesUpdated = false;
 #endif // DO_TRACKING
 }
 
