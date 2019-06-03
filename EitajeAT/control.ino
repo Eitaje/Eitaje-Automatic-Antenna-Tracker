@@ -12,8 +12,12 @@ float d_pan = 0.0; // delta pan
 float velocity = 1; //calibration velocity
 void calc_plane_tracking_coordinates()
 {
-
 #ifdef DO_TRACKING
+
+	if (!gcs_ready_for_tracking)
+		return;
+
+
 	float curr_hdg_to_plane;
 	/*
 	Compute heading to airplane
@@ -31,6 +35,9 @@ void calc_plane_tracking_coordinates()
 		distance_to_plane = distance_between(lat1, long1, lat2, long2);
 		delta_height = alt_airplane - alt_GCS;
 	}
+
+	if (distance_to_plane < minimal_distance_for_tracking)
+		return; // too close for tracking
 
 	if (hdg_to_plane <= 180)
 		curr_hdg_to_plane = hdg_to_plane;
